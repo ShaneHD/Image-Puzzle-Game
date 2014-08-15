@@ -15,13 +15,16 @@ public class PuzzleSelector {
 		
 		if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			File selected = chooser.getSelectedFile();
-			
-			try {
-				BufferedImage img = ImageIO.read(selected);
-				new PuzzleWindow(new Grid(img));
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
+			new PuzzleSelector(selected);
+		}
+	}
+	
+	public PuzzleSelector(File file) {
+		try {
+			BufferedImage img = ImageIO.read(file);
+			new PuzzleWindow(new Grid(img));
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

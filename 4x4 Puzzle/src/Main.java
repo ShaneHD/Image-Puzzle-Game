@@ -1,5 +1,6 @@
 import java.io.File;
 
+import ga.shane.puzzle16.Grid;
 import ga.shane.puzzle16.PuzzleSelector;
 import ga.shane.puzzle16.RandomPuzzleGetter;
 
@@ -14,6 +15,7 @@ public class Main {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch(Exception e) {}
 		
-		new RandomPuzzleGetter(new File("images"));
+		new PuzzleSelector(new File("images/tiger.jpg"));
+		//new RandomPuzzleGetter(new File("images"));
 	}
 }

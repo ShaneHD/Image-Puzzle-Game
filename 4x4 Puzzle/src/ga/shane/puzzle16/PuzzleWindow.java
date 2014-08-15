@@ -32,10 +32,10 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 	public PuzzleWindow(Grid grid) {
 		this.grid = grid;
 		setLayout(new GridLayout(4, 4));
-
+		
 		randomisePieces();
 		setupBoard();
-		
+				
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -49,14 +49,18 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 	 * {@link #takenOut} {@link #takenOutIndex} {@link #takenOutLabel} are set to the invisible piece
 	 */
 	private BufferedImage[] randomisePieces() {
+//		Convert the grid to a List
 		List<BufferedImage> all = Arrays.asList(grid.pieces);
-		
+//		Shuffle the grid
 		Collections.shuffle(all, random);
 		
+//		Get a random piece to remove 
 		int i = random.nextInt(grid.pieces.length);
-		takenOut = grid.pieces[i];	
+//		Set the takenOut field to the removed piece
+		takenOut = grid.pieces[i];
+//		And its index
 		takenOutIndex = i;
-		System.out.println(takenOutIndex);
+//		Set the piece to null so that it gets set to non-visible
 		grid.pieces[i] = null;
 			
 		return grid.pieces;
@@ -66,15 +70,18 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 	 * Sets up the puzzle
 	 */
 	private void setupBoard() {
+//		Remove any previously added pieces
 		for(JLabel label : labels)
 			remove(label);
 		
 		labels.clear();
 		setTitle("Shane's 4x4 puzzle game [" + moves + " moves]");		
 		
+//		When the player has won
 		if(won) {
 			setTitle(getTitle() + " YOU'VE WON!");
 			
+//			Add all the pieces in their correct places to show the full image
 			for(BufferedImage piece : grid.getPiecesInNormalOrder())
 				add(new JLabel(new ImageIcon(piece)));
 			
@@ -83,23 +90,28 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			return;
 		}
 		
+//		Iterate through all pieces in the grid
 		for(BufferedImage piece : grid.pieces) {
-			if(piece == null) {
+//			If the piece has been removed
+			if(piece == null) {				
 				takenOutLabel = new JLabel(new ImageIcon(takenOut));
 				add(takenOutLabel);
 				takenOutLabel.addMouseListener(this);
 				labels.add(takenOutLabel);
+//				Make sure it's not visible
 				takenOutLabel.setVisible(false);
 				
 				continue;
 			}
 			
+//			Create the piece in JLabel form
 			JLabel label = new JLabel(new ImageIcon(piece));
 			label.addMouseListener(this);
 			add(label);
 			labels.add(label);
 		}
 		
+//		Make sure the screen is re-rendered
 		revalidate();
 		repaint();
 	}
@@ -136,9 +148,18 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		for(int i = 0; i < grid.pieces.length; i++)
 			grid.pieces[i] = grid.getPiecesInNormalOrder()[i];
 		
+		int margin = 1;
+		
+//		Make sure the margin will work
+		try {
+			Object o = grid.pieces[takenOutIndex + margin];
+		} catch(Exception e) {
+			margin = -1;
+		}
+		
 		grid.pieces[takenOutIndex] = null;
-		BufferedImage replace = grid.pieces[takenOutIndex + 4];
-		grid.pieces[takenOutIndex + 4] = null;
+		BufferedImage replace = grid.pieces[takenOutIndex + margin];
+		grid.pieces[takenOutIndex + margin] = null;
 		grid.pieces[takenOutIndex] = replace;
 	}
 	
@@ -147,9 +168,9 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 //		Make sure the left mouse button is being pressed
 		if(e.getButton() != 1) {
 //			hax
-			autoComplete();
+			/*autoComplete();
 			checkWon();
-			setupBoard();
+			setupBoard();*/
 			
 			return;
 		}
