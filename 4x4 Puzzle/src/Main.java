@@ -1,8 +1,6 @@
-import java.io.File;
-
-import ga.shane.puzzle16.Grid;
-import ga.shane.puzzle16.PuzzleSelector;
 import ga.shane.puzzle16.RandomPuzzleGetter;
+
+import java.io.File;
 
 import javax.swing.UIManager;
 
