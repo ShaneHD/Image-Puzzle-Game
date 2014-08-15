@@ -33,7 +33,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		randomisePieces();
 		setupBoard();
 		
-		//setResizable(false);
+		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -59,6 +59,9 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		return grid.pieces;
 	}
 	
+	/**
+	 * Sets up the puzzle
+	 */
 	private void setupBoard() {
 		for(JLabel label : labels)
 			remove(label);
@@ -98,6 +101,9 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		repaint();
 	}
 	
+	/**
+	 * Checks whether an array has the same contents as another
+	 */
 	private boolean isArraySame(Object[] a1, Object[] a2) {
 		for(int i = 0; i < a1.length; i++) {
 			Object ao1 = a1[i];
@@ -113,14 +119,19 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		return true;
 	}
 	
+	/**
+	 * Checks whether the player has won
+	 */
 	private boolean checkWon() {
 		return won = isArraySame(grid.pieces, grid.getPiecesInNormalOrder());
 	}
 	
+	/**
+	 * Completes the puzzle
+	 */
 	private void autoComplete() {
-		for(int i = 0; i < grid.pieces.length; i++) {
+		for(int i = 0; i < grid.pieces.length; i++)
 			grid.pieces[i] = grid.getPiecesInNormalOrder()[i];
-		}
 		
 		grid.pieces[takenOutIndex] = null;
 		BufferedImage replace = grid.pieces[takenOutIndex + 4];
@@ -133,9 +144,9 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 //		Make sure the left mouse button is being pressed
 		if(e.getButton() != 1) {
 //			hax
-			autoComplete();
+			/*autoComplete();
 			checkWon();
-			setupBoard();
+			setupBoard();*/
 			
 			return;
 		}
@@ -153,6 +164,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		int index = labels.indexOf(clicked);
 		
 		try {
+//			Code to check whether the clicked piece can be moved or not
 			int change = index;
 			final int[] check = {-1, 1, -4, 4};
 			
@@ -170,9 +182,11 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			
 //			Increment player move count
 			moves++;
+//			Move the piece
 			grid.pieces[change] = img;
 			grid.pieces[index] = null;
 			
+//			Check if won and re-setup the board
 			checkWon();
 			setupBoard();
 		} catch(Exception ex) {}		
