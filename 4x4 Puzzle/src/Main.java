@@ -10,12 +10,10 @@ import javax.swing.UIManager;
 /** @author http://www.shane.ga */
 public class Main {
 	public static void main(String[] args) throws Exception {
-		//new RandomPuzzleGetter(new File("images"));
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch(Exception e) {}
 		
-		new PuzzleSelector(new File("images/tiger.jpg"));
-		//new RandomPuzzleGetter(new File("images"));
+		new RandomPuzzleGetter(new File("images"));
 	}
 }
