@@ -20,7 +20,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 	private int takenOutIndex;
 	private BufferedImage takenOut;
 	private JLabel takenOutLabel;
-	private final Random random = new Random(13937);
+	private final Random random = new Random();
 	private final ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	/** Amount of moves the player has made */
 	private int moves;
