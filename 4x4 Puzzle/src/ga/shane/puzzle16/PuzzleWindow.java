@@ -20,7 +20,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 	private int takenOutIndex;
 	private BufferedImage takenOut;
 	private JLabel takenOutLabel;
-	private final Random random = new Random();
+	private final Random random = new Random(13937);
 	private final ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	/** Amount of moves the player has made */
 	private int moves;
@@ -33,7 +33,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		randomisePieces();
 		setupBoard();
 		
-		setResizable(false);
+		//setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -48,11 +48,12 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 	private BufferedImage[] randomisePieces() {
 		List<BufferedImage> all = Arrays.asList(grid.pieces);
 		
-		Collections.shuffle(all);
+		Collections.shuffle(all, random);
 		
 		int i = random.nextInt(grid.pieces.length);
 		takenOut = grid.pieces[i];	
 		takenOutIndex = i;
+		System.out.println(takenOutIndex);
 		grid.pieces[i] = null;
 			
 		return grid.pieces;
@@ -63,6 +64,18 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			remove(label);
 		
 		labels.clear();
+		setTitle("Shane's 4x4 puzzle game [" + moves + " moves]");		
+		
+		if(won) {
+			setTitle(getTitle() + " YOU'VE WON!");
+			
+			for(BufferedImage piece : grid.getPiecesInNormalOrder())
+				add(new JLabel(new ImageIcon(piece)));
+			
+			revalidate();
+			repaint();
+			return;
+		}
 		
 		for(BufferedImage piece : grid.pieces) {
 			if(piece == null) {
@@ -70,9 +83,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 				add(takenOutLabel);
 				takenOutLabel.addMouseListener(this);
 				labels.add(takenOutLabel);
-				
-				if(!won)
-					takenOutLabel.setVisible(false);
+				takenOutLabel.setVisible(false);
 				
 				continue;
 			}
@@ -83,12 +94,8 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			labels.add(label);
 		}
 		
-		setTitle("Shane's 4x4 puzzle game [" + moves + " moves]");		
 		revalidate();
 		repaint();
-		
-		if(won)
-			setTitle(getTitle() + " YOU'VE WON!");
 	}
 	
 	private boolean isArraySame(Object[] a1, Object[] a2) {
@@ -168,7 +175,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			
 			checkWon();
 			setupBoard();
-		} catch(Exception ex) {}
+		} catch(Exception ex) {}		
 	}
 
 	@Override

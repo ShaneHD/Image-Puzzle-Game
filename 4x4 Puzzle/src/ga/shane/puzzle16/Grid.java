@@ -40,7 +40,7 @@ public class Grid {
 		}
 		
 		for(int i = 0; i < pieces.length; i++)
-			normalOrder[i] = pieces[i];
+			normalOrder[i] = pieces[i];		
 	}
 	
 	/**
