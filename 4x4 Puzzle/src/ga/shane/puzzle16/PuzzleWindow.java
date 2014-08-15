@@ -144,9 +144,9 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 //		Make sure the left mouse button is being pressed
 		if(e.getButton() != 1) {
 //			hax
-			/*autoComplete();
+			autoComplete();
 			checkWon();
-			setupBoard();*/
+			setupBoard();
 			
 			return;
 		}
