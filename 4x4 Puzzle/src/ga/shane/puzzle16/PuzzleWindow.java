@@ -33,7 +33,6 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		setupBoard();
 		
 		setResizable(false);
-		setTitle("Shane's 4x4 puzzle game");
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -43,7 +42,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 	
 	/**
 	 * Randomise the locations of the pieces, and  remove one piece<br>
-	 * {@link #takenOut}
+	 * {@link #takenOut} {@link #takenOutIndex} {@link #takenOutLabel} are set to the invisible piece
 	 */
 	private BufferedImage[] randomisePieces() {
 		List<BufferedImage> all = Arrays.asList(grid.pieces);
@@ -81,6 +80,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			labels.add(label);
 		}
 		
+		setTitle("Shane's 4x4 puzzle game [" + moves + " moves]");
 		revalidate();
 		repaint();
 	}
@@ -105,18 +105,22 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		
 		try {
 			int change = index;
+			final int[] check = {-1, 1, -4, 4};
 			
-			if(grid.pieces[index - 1] == null)
-				change--;
-			else if(grid.pieces[index + 1] == null)
-				change++;
-			else if(grid.pieces[index - 4] == null)
-				change-= 4;
-			else if(grid.pieces[index + 4] == null)
-				change+= 4;
-			else
+			for(int cur : check) {
+//				This is in a try block because of index out of bounds being thrown in certain situations (which resulted in pieces not being able to move)
+				try {
+					if(grid.pieces[index + cur] == null)
+						change+= cur;
+				} catch(Exception ex) {}
+			}
+			
+//			If it can't move, simply break out
+			if(change == index)
 				throw new Exception();
 			
+//			Increment player move count
+			moves++;
 			grid.pieces[change] = img;
 			grid.pieces[index] = null;
 			setupBoard();
