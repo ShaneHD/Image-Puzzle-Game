@@ -95,15 +95,19 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		int index = labels.indexOf(clicked);
 		
 		try {
-			if(grid.pieces[index - 1] == null) {
-				grid.pieces[index - 1] = img;
-				grid.pieces[index] = null;
-				
-				setupBoard();
-			}
-		} catch(Exception ex) {
-			ex.printStackTrace();
-		}
+			int change = index;
+			
+			if(grid.pieces[index - 1] == null)
+				change--;
+			else if(grid.pieces[index + 1] == null) {
+				change++;
+			} else
+				throw new Exception();
+			
+			grid.pieces[change] = img;
+			grid.pieces[index] = null;
+			setupBoard();
+		} catch(Exception ex) {}
 	}
 
 	@Override
