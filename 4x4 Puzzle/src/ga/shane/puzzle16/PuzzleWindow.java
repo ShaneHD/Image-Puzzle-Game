@@ -1,6 +1,5 @@
 package ga.shane.puzzle16;
 
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -23,12 +22,14 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 	private JLabel takenOutLabel;
 	private final Random random = new Random();
 	private final ArrayList<JLabel> labels = new ArrayList<JLabel>();
+	/** Amount of moves the player has made */
+	private int moves;
 	
 	public PuzzleWindow(Grid grid) {
 		this.grid = grid;
 		setLayout(new GridLayout(4, 4));
 
-		BufferedImage[] pieces = randomisePieces();
+		randomisePieces();
 		setupBoard();
 		
 		//setResizable(false);
