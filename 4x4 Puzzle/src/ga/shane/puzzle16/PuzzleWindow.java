@@ -24,6 +24,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 	private final ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	/** Amount of moves the player has made */
 	private int moves;
+	private boolean won;
 	
 	public PuzzleWindow(Grid grid) {
 		this.grid = grid;
@@ -66,10 +67,12 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		for(BufferedImage piece : grid.pieces) {
 			if(piece == null) {
 				takenOutLabel = new JLabel(new ImageIcon(takenOut));
-				takenOutLabel.setVisible(false);
 				add(takenOutLabel);
 				takenOutLabel.addMouseListener(this);
 				labels.add(takenOutLabel);
+				
+				if(!won)
+					takenOutLabel.setVisible(false);
 				
 				continue;
 			}
@@ -80,16 +83,55 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			labels.add(label);
 		}
 		
-		setTitle("Shane's 4x4 puzzle game [" + moves + " moves]");
+		setTitle("Shane's 4x4 puzzle game [" + moves + " moves]");		
 		revalidate();
 		repaint();
+		
+		if(won)
+			setTitle(getTitle() + " YOU'VE WON!");
 	}
-
+	
+	private boolean isArraySame(Object[] a1, Object[] a2) {
+		for(int i = 0; i < a1.length; i++) {
+			Object ao1 = a1[i];
+			Object ao2 = a2[i];
+			
+			if(ao1 == null || ao2 == null)
+				continue;
+			
+			if(ao1 != ao2)
+				return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean checkWon() {
+		return won = isArraySame(grid.pieces, grid.getPiecesInNormalOrder());
+	}
+	
+	private void autoComplete() {
+		for(int i = 0; i < grid.pieces.length; i++) {
+			grid.pieces[i] = grid.getPiecesInNormalOrder()[i];
+		}
+		
+		grid.pieces[takenOutIndex] = null;
+		BufferedImage replace = grid.pieces[takenOutIndex + 4];
+		grid.pieces[takenOutIndex + 4] = null;
+		grid.pieces[takenOutIndex] = replace;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 //		Make sure the left mouse button is being pressed
-		if(e.getButton() != 1)
+		if(e.getButton() != 1) {
+//			hax
+			autoComplete();
+			checkWon();
+			setupBoard();
+			
 			return;
+		}
 		
 //		The piece that's been clicked
 		JLabel clicked = (JLabel) e.getSource();
@@ -123,6 +165,8 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			moves++;
 			grid.pieces[change] = img;
 			grid.pieces[index] = null;
+			
+			checkWon();
 			setupBoard();
 		} catch(Exception ex) {}
 	}
