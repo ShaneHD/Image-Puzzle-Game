@@ -1,7 +1,11 @@
 package ga.shane.puzzle16;
 
+import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -12,30 +16,22 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /** @author http://www.shane.ga */
-public class PuzzleWindow extends JFrame {
+public class PuzzleWindow extends JFrame implements MouseListener {
 	private final Grid grid;
+	private int takenOutIndex;
 	private BufferedImage takenOut;
+	private JLabel takenOutLabel;
 	private final Random random = new Random();
+	private final ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	
 	public PuzzleWindow(Grid grid) {
 		this.grid = grid;
 		setLayout(new GridLayout(4, 4));
 
 		BufferedImage[] pieces = randomisePieces();
+		setupBoard();
 		
-		for(BufferedImage piece : pieces) {
-			if(piece == null) {
-				JLabel invis = new JLabel(new ImageIcon(takenOut));
-				invis.setVisible(false);
-				add(invis);
-				
-				continue;
-			}
-			
-			add(new JLabel(new ImageIcon(piece)));
-		}
-		
-		setResizable(false);
+		//setResizable(false);
 		setTitle("Shane's 4x4 puzzle game");
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -50,13 +46,79 @@ public class PuzzleWindow extends JFrame {
 	 */
 	private BufferedImage[] randomisePieces() {
 		List<BufferedImage> all = Arrays.asList(grid.pieces);
-		BufferedImage[] pieces = new BufferedImage[15];
 		
 		Collections.shuffle(all);
-		int i = random.nextInt(grid.pieces.length);
-		takenOut = grid.pieces[i];
-		grid.pieces[i] = null;
 		
+		int i = random.nextInt(grid.pieces.length);
+		takenOut = grid.pieces[i];	
+		takenOutIndex = i;
+		grid.pieces[i] = null;
+			
 		return grid.pieces;
+	}
+	
+	private void setupBoard() {
+		for(JLabel label : labels)
+			remove(label);
+		
+		labels.clear();
+		
+		for(BufferedImage piece : grid.pieces) {
+			if(piece == null) {
+				takenOutLabel = new JLabel(new ImageIcon(takenOut));
+				takenOutLabel.setVisible(false);
+				add(takenOutLabel);
+				takenOutLabel.addMouseListener(this);
+				labels.add(takenOutLabel);
+				
+				continue;
+			}
+			
+			JLabel label = new JLabel(new ImageIcon(piece));
+			label.addMouseListener(this);
+			add(label);
+			labels.add(label);
+		}
+		
+		revalidate();
+		repaint();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		JLabel clicked = (JLabel) e.getSource();
+		BufferedImage img = (BufferedImage) ((ImageIcon) clicked.getIcon()).getImage();
+		
+		if(!clicked.isVisible())
+			return;
+		
+		int index = labels.indexOf(clicked);
+		
+		try {
+			if(grid.pieces[index - 1] == null) {
+				grid.pieces[index - 1] = img;
+				grid.pieces[index] = null;
+				
+				setupBoard();
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
 	}
 }
