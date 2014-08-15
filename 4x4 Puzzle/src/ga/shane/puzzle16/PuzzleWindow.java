@@ -25,6 +25,9 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 	/** Amount of moves the player has made */
 	private int moves;
 	private boolean won;
+	public static final String[] formats = {
+		"png", "jpg", "jpeg", "gif", "bmp"
+	};
 	
 	public PuzzleWindow(Grid grid) {
 		this.grid = grid;

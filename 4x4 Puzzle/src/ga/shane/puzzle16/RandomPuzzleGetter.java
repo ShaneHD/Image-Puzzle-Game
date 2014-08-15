@@ -10,10 +10,6 @@ import javax.imageio.ImageIO;
 
 /** @author http://www.shane.ga */
 public class RandomPuzzleGetter {
-	private final String[] formats = {
-		"png", "jpg", "jpeg", "gif"	
-	};
-	
 	public RandomPuzzleGetter(File dir) {
 		ArrayList<File> files = new ArrayList<File>();
 		
@@ -44,7 +40,7 @@ public class RandomPuzzleGetter {
 	private boolean isImage(File file) {
 		String name = file.getName();
 		
-		for(String format : formats) {
+		for(String format : PuzzleWindow.formats) {
 			if(name.endsWith(format))
 				return true;
 		}
