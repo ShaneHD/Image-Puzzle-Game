@@ -99,9 +99,13 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			
 			if(grid.pieces[index - 1] == null)
 				change--;
-			else if(grid.pieces[index + 1] == null) {
+			else if(grid.pieces[index + 1] == null)
 				change++;
-			} else
+			else if(grid.pieces[index - 4] == null)
+				change-= 4;
+			else if(grid.pieces[index + 4] == null)
+				change+= 4;
+			else
 				throw new Exception();
 			
 			grid.pieces[change] = img;
