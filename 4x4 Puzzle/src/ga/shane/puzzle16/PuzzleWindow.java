@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+//test
 /** @author http://www.shane.ga */
 public class PuzzleWindow extends JFrame implements MouseListener {
 	private final Grid grid;
