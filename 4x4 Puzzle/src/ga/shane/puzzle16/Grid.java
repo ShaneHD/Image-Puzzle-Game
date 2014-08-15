@@ -22,19 +22,19 @@ public class Grid {
 	public Grid(BufferedImage image) {
 		this.image = image;
 		
-		//Get the images width
+//		Get the images width
 		final int width = image.getWidth();
-		//And its height
+//		And its height
 		final int height = image.getHeight();
 				
-		//Initialise the splice variables
+//		Initialise the splice variables
 		int x = 0;
 		int y = 0;
-		//Width and height to use when splicing
+//		Width and height to use when splicing
 		final int w = width / 4;
 		final int h = height / 4;
 	
-		//Iterate from 0 to 16
+//		Iterate from 0 to 16
 		for(int i = 0; i < 16; i++) {
 			if(i != 0 && i % 4 == 0) {
 				x = 0;

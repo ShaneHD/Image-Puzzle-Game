@@ -32,7 +32,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		randomisePieces();
 		setupBoard();
 		
-		//setResizable(false);
+		setResizable(false);
 		setTitle("Shane's 4x4 puzzle game");
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -87,12 +87,20 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+//		Make sure the left mouse button is being pressed
+		if(e.getButton() != 1)
+			return;
+		
+//		The piece that's been clicked
 		JLabel clicked = (JLabel) e.getSource();
+//		Its associated image
 		BufferedImage img = (BufferedImage) ((ImageIcon) clicked.getIcon()).getImage();
 		
+//		If it's the invisible piece, gtfo
 		if(!clicked.isVisible())
 			return;
 		
+//		Its index
 		int index = labels.indexOf(clicked);
 		
 		try {
