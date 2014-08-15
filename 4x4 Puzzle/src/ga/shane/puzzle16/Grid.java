@@ -1,10 +1,14 @@
 package ga.shane.puzzle16;
 
 import java.awt.GridLayout;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /** 
  * Splices up a {@link BufferedImage} into a 4x4 grid
@@ -26,6 +30,7 @@ public class Grid {
 		//Initialise the splice variables
 		int x = 0;
 		int y = 0;
+		//Width and height to use when splicing
 		final int w = width / 4;
 		final int h = height / 4;
 	
@@ -38,19 +43,7 @@ public class Grid {
 			
 			pieces[i] = image.getSubimage(x, y, w, h);
 			
-			System.out.println(x);
 			x+= w;
-		}
-		
-		JFrame f = new JFrame();
-		f.setSize(650, 500);
-		f.setAlwaysOnTop(true);
-		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
-		f.setVisible(true);
-		f.setLayout(new GridLayout(4, 4));
-		
-		for(BufferedImage piece : pieces) {
-			f.add(new JLabel(new ImageIcon(piece)));
 		}
 	}
 }
