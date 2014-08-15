@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 public class Grid {
 	private final BufferedImage image;
 	public final BufferedImage[] pieces = new BufferedImage[16];
+	private final BufferedImage[] normalOrder = new BufferedImage[16];
 	
 	public Grid(BufferedImage image) {
 		this.image = image;
@@ -45,5 +46,12 @@ public class Grid {
 			
 			x+= w;
 		}
+	}
+	
+	/**
+	 * @return The pieces in their starting order
+	 */
+	public BufferedImage[] getPiecesInNormalOrder() {
+		return normalOrder;
 	}
 }
