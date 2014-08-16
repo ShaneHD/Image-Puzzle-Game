@@ -16,23 +16,33 @@ import javax.swing.JLabel;
 
 /** @author http://www.shane.ga */
 public class PuzzleWindow extends JFrame implements MouseListener {
+	/** The grid. Contains a size 16 array of {@link BufferedImage}s ({@link Grid#pieces}) and a default version of this (with normal order that isn't randomised) ({@link Grid#getPiecesInNormalOrder()})*/ 
 	private final Grid grid;
+	/** The index of the removed piece */
 	private int takenOutIndex;
+	/** The {@link BufferedImage} of the removed piece */
 	private BufferedImage takenOut;
+	/** The {@link JLabel} of the removed piece */
 	private JLabel takenOutLabel;
+	/** A random instance */
 	private final Random random = new Random();
+	/** A list of all {@link JLabel}s currently added to the frame (all pieces in label form))*/
 	private final ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	/** Amount of moves the player has made */
 	private int moves;
+	/** Has the player won? */
 	private boolean won;
-	public static final String[] formats = {
+	/** A list of all image formats (png, jpg, etc.) */
+	public static final String[] FORMATS = {
 		"png", "jpg", "jpeg", "gif", "bmp"
 	};
 	
 	public PuzzleWindow(Grid grid) {
 		this.grid = grid;
+//		Assign this frame a 4x4 grid layout
 		setLayout(new GridLayout(4, 4));
 		
+//		Set up the board for the first time
 		randomisePieces();
 		setupBoard();
 				
@@ -85,8 +95,10 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			for(BufferedImage piece : grid.getPiecesInNormalOrder())
 				add(new JLabel(new ImageIcon(piece)));
 			
+//			Make sure that the screen is refreshed
 			revalidate();
 			repaint();
+			
 			return;
 		}
 		
@@ -124,13 +136,16 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			Object ao1 = a1[i];
 			Object ao2 = a2[i];
 			
+//			Make sure that we're not comparing nulls
 			if(ao1 == null || ao2 == null)
 				continue;
 			
+//			If any value inside array1 isn't the same as its index in array 2, they're not the same
 			if(ao1 != ao2)
 				return false;
 		}
 		
+//		They're the same (hasn't returned false)
 		return true;
 	}
 	
@@ -142,7 +157,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 	}
 	
 	/**
-	 * Completes the puzzle
+	 * All but one move completes the puzzle
 	 */
 	private void autoComplete() {
 		for(int i = 0; i < grid.pieces.length; i++)
@@ -168,9 +183,9 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 //		Make sure the left mouse button is being pressed
 		if(e.getButton() != 1) {
 //			hax
-			autoComplete();
+			/*autoComplete();
 			checkWon();
-			setupBoard();
+			setupBoard();*/
 			
 			return;
 		}
@@ -195,6 +210,8 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			for(int cur : check) {
 //				This is in a try block because of index out of bounds being thrown in certain situations (which resulted in pieces not being able to move)
 				try {
+//					If the piece at these coordinates is null, then the player can move
+//					change is the index of which to move the piece to
 					if(grid.pieces[index + cur] == null)
 						change+= cur;
 				} catch(Exception ex) {}
@@ -208,6 +225,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 			moves++;
 //			Move the piece
 			grid.pieces[change] = img;
+//			The index that this piece was before its move is set to null (blank)
 			grid.pieces[index] = null;
 			
 //			Check if won and re-setup the board
@@ -216,6 +234,7 @@ public class PuzzleWindow extends JFrame implements MouseListener {
 		} catch(Exception ex) {}		
 	}
 
+//	Methods that we don't need to use
 	@Override
 	public void mouseEntered(MouseEvent e) {
 	}

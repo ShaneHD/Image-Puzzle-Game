@@ -40,7 +40,7 @@ public class RandomPuzzleGetter {
 	private boolean isImage(File file) {
 		String name = file.getName();
 		
-		for(String format : PuzzleWindow.formats) {
+		for(String format : PuzzleWindow.FORMATS) {
 			if(name.endsWith(format))
 				return true;
 		}

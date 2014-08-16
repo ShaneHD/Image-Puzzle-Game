@@ -11,7 +11,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class PuzzleSelector {
 	public PuzzleSelector() {
 		JFileChooser chooser = new JFileChooser();
-		chooser.setFileFilter(new FileNameExtensionFilter("Images", PuzzleWindow.formats));
+		chooser.setFileFilter(new FileNameExtensionFilter("Images", PuzzleWindow.FORMATS));
 		
 		if(chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			File selected = chooser.getSelectedFile();

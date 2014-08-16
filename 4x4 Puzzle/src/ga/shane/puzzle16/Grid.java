@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
  * @author http://www.shane.ga 
 */
 public class Grid {
+	/** The pieces of the grid in {@link BufferedImage} form */
 	public final BufferedImage[] pieces = new BufferedImage[16];
 	private final BufferedImage[] normalOrder = new BufferedImage[16];
 	
