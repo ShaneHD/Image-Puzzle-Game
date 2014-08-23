@@ -14,6 +14,9 @@ class Grid {
 	public final int size;
 	
 	public Grid(int size, BufferedImage image) {		
+		if(size <= 1)
+			throw new RuntimeException("Size must be above 1!");
+		
 		this.size = size;
 		pieces = new BufferedImage[size * size];
 		normalOrder = new BufferedImage[pieces.length];
