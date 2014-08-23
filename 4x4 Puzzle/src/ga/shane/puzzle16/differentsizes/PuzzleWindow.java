@@ -1,4 +1,4 @@
-package ga.shane.puzzle16;
+package ga.shane.puzzle16.differentsizes;
 
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -40,7 +40,7 @@ class PuzzleWindow extends JFrame implements MouseListener {
 	public PuzzleWindow(Grid grid) {
 		this.grid = grid;
 //		Assign this frame a 4x4 grid layout
-		setLayout(new GridLayout(4, 4));
+		setLayout(new GridLayout(grid.size, grid.size));
 		
 //		Set up the board for the first time
 		randomisePieces();
@@ -85,7 +85,7 @@ class PuzzleWindow extends JFrame implements MouseListener {
 			remove(label);
 		
 		labels.clear();
-		setTitle("Shane's 4x4 puzzle game [" + moves + " moves]");		
+		setTitle("Shane's 4x4 (now different sizes!) puzzle game [" + moves + " moves] [" + grid.size + " x " + grid.size + "]");		
 		
 //		When the player has won
 		if(won) {
@@ -205,7 +205,7 @@ class PuzzleWindow extends JFrame implements MouseListener {
 		try {
 //			Code to check whether the clicked piece can be moved or not
 			int change = index;
-			final int[] check = {-1, 1, -4, 4};
+			final int[] check = {-1, 1, -grid.size, grid.size};
 			
 			for(int cur : check) {
 //				This is in a try block because of index out of bounds being thrown in certain situations (which resulted in pieces not being able to move)
