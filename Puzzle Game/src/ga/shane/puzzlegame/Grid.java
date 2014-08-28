@@ -102,7 +102,7 @@ public class Grid {
 //						int check = clicked % 4 == 0 ? -1 : 1;
 //						
 ////						If it is
-//						if(cur == (clicked % 4 == 0 ? -1 : 1))
+//						if(cur == check)
 ////							Skip this move
 //							continue;
 //					}
