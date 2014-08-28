@@ -73,6 +73,18 @@ public class Grid {
 	}
 	
 	/**
+	 * Checks if a piece is on the side or not
+	 */
+	private boolean isSidePiece(int id) {
+//		If the id is odd (on the right hand side if it's a side piece)
+		if(id % 2 != 0)	
+//			Add 1 to this piece so id%4 returns 0 if it's a side piece
+			id++;
+		
+		return id % 4 == 0;
+	}
+	
+	/**
 	 * Move a piece
 	 * @param clicked The index to move
 	 * @return Whether the move is valid or not (if the piece was moved)
@@ -84,6 +96,22 @@ public class Grid {
 			for(int cur : possibleMoves) {
 //				This is in a try block because of index out of bounds being thrown in certain situations (which resulted in pieces not being able to move)
 				try {
+//					If it's a side piece
+					if(isSidePiece(clicked)) {
+//						Make sure that the move isn't invalid
+						int check = clicked % 4 == 0 ? -1 : 1;
+						
+//						If it is
+						if(cur == (clicked % 4 == 0 ? -1 : 1))
+//							Skip this move
+							continue;
+					}
+					
+					if(change % 1 == 0 && cur % 1 == 0) {
+						//System.out.println("Bad move [" + check + "]");
+						//continue;
+					}
+					
 //					If the piece at these coordinates is null, then the player can move
 //					change is the index of which to move the piece to
 					if(pieces[clicked + cur] == null)
