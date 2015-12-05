@@ -1,4 +1,4 @@
-import ga.shane.puzzlegame.Launcher;
+import com.github.shanehd.puzzlegame.Launcher;
 
 /** @author https://www.github.com/ShaneHD */
 public class Main {

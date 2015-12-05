@@ -1,12 +1,12 @@
-package ga.shane.puzzlegame;
-
-import ga.shane.utilities.ArrayUtils;
+package com.github.shanehd.puzzlegame;
 
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
+import com.github.shanehd.utilities.ArrayUtils;
 
 /** @author https://www.github.com/ShaneHD */
 public class Grid {

@@ -1,11 +1,11 @@
-package ga.shane.puzzlegame;
+package com.github.shanehd.puzzlegame;
 
 import java.security.InvalidParameterException;
 
-import ga.shane.utilities.GuiUtils;
-import ga.shane.utilities.WindowsUtils;
-
 import javax.swing.JOptionPane;
+
+import com.github.shanehd.utilities.GuiUtils;
+import com.github.shanehd.utilities.WindowsUtils;
 
 /**
  * A launcher fit for release<br>

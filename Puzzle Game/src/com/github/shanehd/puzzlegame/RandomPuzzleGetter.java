@@ -1,6 +1,4 @@
-package ga.shane.puzzlegame;
-
-import ga.shane.utilities.FileUtils;
+package com.github.shanehd.puzzlegame;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,6 +7,8 @@ import java.util.Collections;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+
+import com.github.shanehd.utilities.FileUtils;
 
 /** @author https://www.github.com/ShaneHD */
 public class RandomPuzzleGetter {

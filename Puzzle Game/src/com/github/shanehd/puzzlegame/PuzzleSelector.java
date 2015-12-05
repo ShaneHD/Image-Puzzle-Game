@@ -1,11 +1,12 @@
-package ga.shane.puzzlegame;
+package com.github.shanehd.puzzlegame;
 
-import ga.shane.utilities.ImageUtils;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import com.github.shanehd.utilities.ImageUtils;
 
 /** @author https://www.github.com/ShaneHD */
 public class PuzzleSelector {
