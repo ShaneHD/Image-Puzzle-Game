@@ -1,4 +1,4 @@
-package ga.shane.puzzle16;
+package com.github.shanehd.puzzle16;
 
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;

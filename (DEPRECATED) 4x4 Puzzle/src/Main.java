@@ -1,8 +1,8 @@
-import ga.shane.puzzle16.RandomPuzzleGetter;
 
 import java.io.File;
-
 import javax.swing.UIManager;
+
+import com.github.shanehd.puzzle16.RandomPuzzleGetter;
 
 
 /** @author https://www.github.com/ShaneHD */

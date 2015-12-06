@@ -1,4 +1,4 @@
-package ga.shane.puzzle16.differentsizes;
+package com.github.shanehd.puzzle16.differentsizes;
 
 import java.io.File;
 
